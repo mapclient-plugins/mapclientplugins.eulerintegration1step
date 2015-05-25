@@ -20,6 +20,7 @@ from matplotlib.figure import Figure
 from matplotlib.backend_bases import key_press_handler
 
 from mapclientplugins.eulerintegration1step.view.ui_eulerintegrationwidget import Ui_EulerIntegrationWidget
+from mapclientplugins.eulerintegration1step.sedml.execute import ExecuteSedml
 
 class EulerIntegrationWidget(QtGui.QWidget):
     '''
@@ -34,6 +35,7 @@ class EulerIntegrationWidget(QtGui.QWidget):
 	super(EulerIntegrationWidget, self).__init__(parent)
         self._ui = Ui_EulerIntegrationWidget()
         self._ui.setupUi(self)
+	self.sedml = ExecuteSedml()
 	# create the plot
 	self.fig = Figure((5.0, 4.0), dpi=100)
         self.canvas = FigureCanvas(self.fig)
@@ -64,6 +66,7 @@ class EulerIntegrationWidget(QtGui.QWidget):
 
     def _simulateButtonClicked(self):
         print "Simulate clicked"
+	self.sedml.execute(self._ui.stepSizeSpinBox.value())
 	self.axes = self.fig.add_subplot(111)
         #self.axes.plot(self.x, self.y, 'ro')
 	data = np.arange(20).reshape([4, 5]).copy()
