@@ -1,4 +1,6 @@
 from string import Template
+from subprocess import call
+import numpy as np
 
 class ExecuteSedml():
     '''
@@ -18,6 +20,7 @@ class ExecuteSedml():
 	http://stackoverflow.com/questions/6385686/python-technique-or-simple-templating-system-for-plain-text-output
 	'''
 
+	# Create our SED-ML file from the template with the given step size
 	#open the file
 	filein = open( self.template )
 	#read it
@@ -26,6 +29,15 @@ class ExecuteSedml():
 	d={ 'MAX_STEP_SIZE':stepSize }
 	#do the substitution
 	result = src.substitute(d)
-	tmpFile = u"/tmp/andre-tmp-sedml.xml"
+	tmpFile = "/tmp/andre-tmp-sedml.xml"
 	fileout = open( tmpFile, "w" )
 	fileout.write(result)
+	fileout.flush()
+	
+	# execute the simulation experiment
+	resultsFile = "/tmp/andre-sed-ml-results.csv"
+	returnCode = call(["/home/abi/projects/simulation-data/bin/get-sed-ml-client", tmpFile, resultsFile])
+	if returnCode != 0:
+		return None
+	data = np.genfromtxt(resultsFile, dtype=float, delimiter=',', names=True)
+	return data 

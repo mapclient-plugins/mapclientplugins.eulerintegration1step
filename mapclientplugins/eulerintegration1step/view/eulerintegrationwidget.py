@@ -66,11 +66,13 @@ class EulerIntegrationWidget(QtGui.QWidget):
 
     def _simulateButtonClicked(self):
         print "Simulate clicked"
-	self.sedml.execute(self._ui.stepSizeSpinBox.value())
+	data = self.sedml.execute(self._ui.stepSizeSpinBox.value())
+	if data == None:
+		return
 	self.axes = self.fig.add_subplot(111)
         #self.axes.plot(self.x, self.y, 'ro')
-	data = np.arange(20).reshape([4, 5]).copy()
-        self.axes.imshow(data, interpolation='nearest')
+	data1 = np.arange(20).reshape([4, 5]).copy()
+        self.axes.imshow(data1, interpolation='nearest')
         #self.axes.plot([1,2,3])
         self.canvas.draw()
     
