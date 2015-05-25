@@ -26,4 +26,6 @@ class ExecuteSedml():
 	d={ 'MAX_STEP_SIZE':stepSize }
 	#do the substitution
 	result = src.substitute(d)
-	print result
+	tmpFile = u"/tmp/andre-tmp-sedml.xml"
+	fileout = open( tmpFile, "w" )
+	fileout.write(result)
