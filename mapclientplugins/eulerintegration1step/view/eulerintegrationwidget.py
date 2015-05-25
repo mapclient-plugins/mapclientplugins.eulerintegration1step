@@ -50,6 +50,9 @@ class EulerIntegrationWidget(QtGui.QWidget):
         vbox.addWidget(self.mpl_toolbar)
         self._ui.plotPane.setLayout(vbox)
         #self.setCentralWidget(self.main_frame)
+
+	self.axes = self.fig.add_subplot(111)
+	self.axes.legend()
         
 	self._makeConnections()
 
@@ -68,17 +71,24 @@ class EulerIntegrationWidget(QtGui.QWidget):
         print "Simulate clicked"
 	data = self.sedml.execute(self._ui.stepSizeSpinBox.value())
 	if data == None:
-		return
-	self.axes = self.fig.add_subplot(111)
+		return	
         #self.axes.plot(self.x, self.y, 'ro')
 	data1 = np.arange(20).reshape([4, 5]).copy()
-        self.axes.imshow(data1, interpolation='nearest')
-        #self.axes.plot([1,2,3])
+        #self.axes.imshow(data1, interpolation='nearest')
+	#print data
+	#print data.shape
+	#print data.dtype.names
+	#print data['X']
+        self.axes.plot(data['X'], data['sinX'], label='sin(x)')
+        self.axes.plot(data['X'], data['Derivative_approximation'])
         self.canvas.draw()
     
     def _clearButtonClicked(self):
         print "Clear button clicked"
 	self.fig.clear()
+	self.axes = self.fig.add_subplot(111)
+	self.axes.legend()
+	self.canvas.draw()
                         
     def initialise(self):
         print "Initialise called?"
