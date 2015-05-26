@@ -13,7 +13,7 @@ class ExecuteSedml():
         '''
 	
 	self.simulationDataRoot = u"/home/abi/projects/simulation-data"
-	self.template = self.simulationDataRoot + u"/sed-ml-templates/DTP-template-sed-ml.xml"
+	self.template = self.simulationDataRoot + u"/sed-ml-templates/euler-with-sine-model.xml"
 
     def execute(self, stepSize):
 	'''
