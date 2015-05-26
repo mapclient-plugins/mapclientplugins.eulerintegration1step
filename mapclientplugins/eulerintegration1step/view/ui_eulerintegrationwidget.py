@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'eulerintegrationwidget.ui'
 #
-# Created: Tue May 26 01:01:26 2015
+# Created: Tue May 26 13:14:36 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -69,10 +69,6 @@ class Ui_EulerIntegrationWidget(object):
         self.clearButton = QtGui.QPushButton(self.dockWidgetContents)
         self.clearButton.setObjectName("clearButton")
         self.verticalLayout.addWidget(self.clearButton)
-        self.showSineFunction = QtGui.QCheckBox(self.dockWidgetContents)
-        self.showSineFunction.setChecked(True)
-        self.showSineFunction.setObjectName("showSineFunction")
-        self.verticalLayout.addWidget(self.showSineFunction)
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
         self.doneButton = QtGui.QPushButton(self.dockWidgetContents)
@@ -98,6 +94,5 @@ class Ui_EulerIntegrationWidget(object):
         self.label.setText(QtGui.QApplication.translate("EulerIntegrationWidget", "h:", None, QtGui.QApplication.UnicodeUTF8))
         self.simulateButton.setText(QtGui.QApplication.translate("EulerIntegrationWidget", "Simulate", None, QtGui.QApplication.UnicodeUTF8))
         self.clearButton.setText(QtGui.QApplication.translate("EulerIntegrationWidget", "Clear graph", None, QtGui.QApplication.UnicodeUTF8))
-        self.showSineFunction.setText(QtGui.QApplication.translate("EulerIntegrationWidget", "Show sin(t)", None, QtGui.QApplication.UnicodeUTF8))
         self.doneButton.setText(QtGui.QApplication.translate("EulerIntegrationWidget", "Done", None, QtGui.QApplication.UnicodeUTF8))
 

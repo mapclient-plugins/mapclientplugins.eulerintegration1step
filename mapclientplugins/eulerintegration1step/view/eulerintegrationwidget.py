@@ -51,16 +51,26 @@ class EulerIntegrationWidget(QtGui.QWidget):
         self._ui.plotPane.setLayout(vbox)
         #self.setCentralWidget(self.main_frame)
 
-	self.axes = self.fig.add_subplot(111)
-	self.axes.legend()
-        
+	self.createAxes()
 	self._makeConnections()
 
+    def createAxes(self):
+	self.axes = self.fig.add_subplot(111)
+	self.drawSineFunction()
+	self.axes.legend()
+	self.canvas.draw()
+        
     def _makeConnections(self):
         self._ui.doneButton.clicked.connect(self._doneButtonClicked)
         self._ui.simulateButton.clicked.connect(self._simulateButtonClicked)
         self._ui.clearButton.clicked.connect(self._clearButtonClicked)
         
+    def drawSineFunction(self):
+	# draw sine function
+	t = np.arange(0.0, 2.0*np.pi, 0.01)
+	s = np.sin(t)
+	self.axes.plot(t, s, label="sin(t)")
+
     def on_key_press(self, event):
         print('you pressed', event.key)
         # implement the default mpl key press events described at
@@ -69,7 +79,8 @@ class EulerIntegrationWidget(QtGui.QWidget):
 
     def _simulateButtonClicked(self):
         print "Simulate clicked"
-	data = self.sedml.execute(self._ui.stepSizeSpinBox.value())
+	h = self._ui.stepSizeSpinBox.value()
+	data = self.sedml.execute(h)
 	if data == None:
 		return	
         #self.axes.plot(self.x, self.y, 'ro')
@@ -79,16 +90,16 @@ class EulerIntegrationWidget(QtGui.QWidget):
 	#print data.shape
 	#print data.dtype.names
 	#print data['X']
-        self.axes.plot(data['X'], data['sinX'], label='sin(x)')
-        self.axes.plot(data['X'], data['Derivative_approximation'])
+        #self.axes.plot(data['X'], data['sinX'], label='sin(x)')
+	title = "h=" + str(h)
+        self.axes.plot(data['X'], data['Derivative_approximation'], label=title)
+	self.axes.legend()
         self.canvas.draw()
     
     def _clearButtonClicked(self):
         print "Clear button clicked"
 	self.fig.clear()
-	self.axes = self.fig.add_subplot(111)
-	self.axes.legend()
-	self.canvas.draw()
+	self.createAxes()
                         
     def initialise(self):
         print "Initialise called?"
