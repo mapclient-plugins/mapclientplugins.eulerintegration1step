@@ -80,7 +80,9 @@ class EulerIntegrationWidget(QtGui.QWidget):
     def _simulateButtonClicked(self):
         print "Simulate clicked"
 	h = self._ui.stepSizeSpinBox.value()
-	data = self.sedml.execute(h)
+        n = self._ui.nSpinBox.value()
+        print "n = %d; h = %lf" % (n, h)
+	data = self.sedml.execute(h, n)
 	if data == None:
 		return	
         #self.axes.plot(self.x, self.y, 'ro')
@@ -92,7 +94,7 @@ class EulerIntegrationWidget(QtGui.QWidget):
 	#print data['X']
         #self.axes.plot(data['X'], data['sinX'], label='sin(x)')
 	title = "h=" + str(h)
-        self.axes.plot(data['X'], data['Derivative_approximation'], label=title)
+        self.axes.plot(data['X'], data['Derivative_approximation'], marker="o", label=title)
 	self.axes.legend()
         self.canvas.draw()
     

@@ -15,7 +15,7 @@ class ExecuteSedml():
 	self.simulationDataRoot = u"/home/abi/projects/simulation-data"
 	self.template = self.simulationDataRoot + u"/sed-ml-templates/euler-with-sine-model.xml"
 
-    def execute(self, stepSize):
+    def execute(self, stepSize, n):
 	'''
 	http://stackoverflow.com/questions/6385686/python-technique-or-simple-templating-system-for-plain-text-output
 	'''
@@ -26,7 +26,7 @@ class ExecuteSedml():
 	#read it
 	src = Template( filein.read() )
 	#document data
-	d={ 'MAX_STEP_SIZE':stepSize }
+	d={ 'MAX_STEP_SIZE':stepSize, 'NUMBER_OF_POINTS':n }
 	#do the substitution
 	result = src.substitute(d)
 	tmpFile = "/tmp/andre-tmp-sedml.xml"

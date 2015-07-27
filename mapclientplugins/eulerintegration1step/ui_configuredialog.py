@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/home/abi/projects/mapclient-plugins/mapclientplugins.eulerintegration1step/mapclientplugins/eulerintegration1step/qt/configuredialog.ui'
+# Form implementation generated from reading ui file 'configuredialog.ui'
 #
-# Created: Mon May 25 16:02:40 2015
+# Created: Mon Jul 27 23:20:25 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
