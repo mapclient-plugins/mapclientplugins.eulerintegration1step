@@ -70,7 +70,7 @@ QToolBox {
             <item alignment="Qt::AlignLeft">
              <widget class="QLabel" name="label">
               <property name="text">
-               <string>h:</string>
+               <string>step size:</string>
               </property>
              </widget>
             </item>
@@ -78,6 +78,9 @@ QToolBox {
              <widget class="QDoubleSpinBox" name="stepSizeSpinBox">
               <property name="decimals">
                <number>4</number>
+              </property>
+              <property name="minimum">
+               <double>0.001000000000000</double>
               </property>
               <property name="maximum">
                <double>1.000000000000000</double>

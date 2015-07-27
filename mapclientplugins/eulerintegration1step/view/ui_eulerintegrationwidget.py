@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'eulerintegrationwidget.ui'
 #
-# Created: Tue May 26 13:14:36 2015
+# Created: Mon Jul 27 23:20:50 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -56,6 +56,7 @@ class Ui_EulerIntegrationWidget(object):
         self.horizontalLayout_2.addWidget(self.label)
         self.stepSizeSpinBox = QtGui.QDoubleSpinBox(self.widget)
         self.stepSizeSpinBox.setDecimals(4)
+        self.stepSizeSpinBox.setMinimum(0.001)
         self.stepSizeSpinBox.setMaximum(1.0)
         self.stepSizeSpinBox.setSingleStep(0.001)
         self.stepSizeSpinBox.setProperty("value", 0.1)
@@ -91,7 +92,7 @@ class Ui_EulerIntegrationWidget(object):
     def retranslateUi(self, EulerIntegrationWidget):
         EulerIntegrationWidget.setWindowTitle(QtGui.QApplication.translate("EulerIntegrationWidget", "Heart Transform", None, QtGui.QApplication.UnicodeUTF8))
         self.dockWidget.setWindowTitle(QtGui.QApplication.translate("EulerIntegrationWidget", "Euler integration example", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("EulerIntegrationWidget", "h:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("EulerIntegrationWidget", "step size:", None, QtGui.QApplication.UnicodeUTF8))
         self.simulateButton.setText(QtGui.QApplication.translate("EulerIntegrationWidget", "Simulate", None, QtGui.QApplication.UnicodeUTF8))
         self.clearButton.setText(QtGui.QApplication.translate("EulerIntegrationWidget", "Clear graph", None, QtGui.QApplication.UnicodeUTF8))
         self.doneButton.setText(QtGui.QApplication.translate("EulerIntegrationWidget", "Done", None, QtGui.QApplication.UnicodeUTF8))
