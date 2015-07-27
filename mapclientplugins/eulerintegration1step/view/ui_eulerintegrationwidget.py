@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'eulerintegrationwidget.ui'
 #
-# Created: Mon Jul 27 23:20:50 2015
+# Created: Tue Jul 28 00:24:29 2015
 #      by: pyside-uic 0.2.15 running on PySide 1.2.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -42,19 +42,13 @@ class Ui_EulerIntegrationWidget(object):
         self.dockWidgetContents = QtGui.QWidget()
         self.dockWidgetContents.setObjectName("dockWidgetContents")
         self.verticalLayout = QtGui.QVBoxLayout(self.dockWidgetContents)
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
-        self.widget = QtGui.QWidget(self.dockWidgetContents)
-        self.widget.setObjectName("widget")
-        self.horizontalLayout_3 = QtGui.QHBoxLayout(self.widget)
-        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.label = QtGui.QLabel(self.widget)
+        self.label = QtGui.QLabel(self.dockWidgetContents)
         self.label.setObjectName("label")
         self.horizontalLayout_2.addWidget(self.label)
-        self.stepSizeSpinBox = QtGui.QDoubleSpinBox(self.widget)
+        self.stepSizeSpinBox = QtGui.QDoubleSpinBox(self.dockWidgetContents)
         self.stepSizeSpinBox.setDecimals(4)
         self.stepSizeSpinBox.setMinimum(0.001)
         self.stepSizeSpinBox.setMaximum(1.0)
@@ -62,8 +56,19 @@ class Ui_EulerIntegrationWidget(object):
         self.stepSizeSpinBox.setProperty("value", 0.1)
         self.stepSizeSpinBox.setObjectName("stepSizeSpinBox")
         self.horizontalLayout_2.addWidget(self.stepSizeSpinBox)
-        self.horizontalLayout_3.addLayout(self.horizontalLayout_2)
-        self.verticalLayout.addWidget(self.widget)
+        self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.horizontalLayout_5 = QtGui.QHBoxLayout()
+        self.horizontalLayout_5.setObjectName("horizontalLayout_5")
+        self.label_2 = QtGui.QLabel(self.dockWidgetContents)
+        self.label_2.setObjectName("label_2")
+        self.horizontalLayout_5.addWidget(self.label_2)
+        self.nSpinBox = QtGui.QSpinBox(self.dockWidgetContents)
+        self.nSpinBox.setMinimum(2)
+        self.nSpinBox.setMaximum(99)
+        self.nSpinBox.setProperty("value", 30)
+        self.nSpinBox.setObjectName("nSpinBox")
+        self.horizontalLayout_5.addWidget(self.nSpinBox)
+        self.verticalLayout.addLayout(self.horizontalLayout_5)
         self.simulateButton = QtGui.QPushButton(self.dockWidgetContents)
         self.simulateButton.setObjectName("simulateButton")
         self.verticalLayout.addWidget(self.simulateButton)
@@ -92,7 +97,8 @@ class Ui_EulerIntegrationWidget(object):
     def retranslateUi(self, EulerIntegrationWidget):
         EulerIntegrationWidget.setWindowTitle(QtGui.QApplication.translate("EulerIntegrationWidget", "Heart Transform", None, QtGui.QApplication.UnicodeUTF8))
         self.dockWidget.setWindowTitle(QtGui.QApplication.translate("EulerIntegrationWidget", "Euler integration example", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("EulerIntegrationWidget", "step size:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("EulerIntegrationWidget", "step size (h):", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_2.setText(QtGui.QApplication.translate("EulerIntegrationWidget", "number of points:", None, QtGui.QApplication.UnicodeUTF8))
         self.simulateButton.setText(QtGui.QApplication.translate("EulerIntegrationWidget", "Simulate", None, QtGui.QApplication.UnicodeUTF8))
         self.clearButton.setText(QtGui.QApplication.translate("EulerIntegrationWidget", "Clear graph", None, QtGui.QApplication.UnicodeUTF8))
         self.doneButton.setText(QtGui.QApplication.translate("EulerIntegrationWidget", "Done", None, QtGui.QApplication.UnicodeUTF8))
