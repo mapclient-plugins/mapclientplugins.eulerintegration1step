@@ -32,12 +32,12 @@ class EulerIntegrationWidget(QtGui.QWidget):
         '''
         Constructor
         '''
-	super(EulerIntegrationWidget, self).__init__(parent)
+        super(EulerIntegrationWidget, self).__init__(parent)
         self._ui = Ui_EulerIntegrationWidget()
         self._ui.setupUi(self)
-	self.sedml = ExecuteSedml()
-	# create the plot
-	self.fig = Figure((5.0, 4.0), dpi=100)
+        self.sedml = ExecuteSedml()
+        # create the plot
+        self.fig = Figure((5.0, 4.0), dpi=100)
         self.canvas = FigureCanvas(self.fig)
         self.canvas.setParent(self._ui.plotPane)
         self.canvas.setFocusPolicy(QtCore.Qt.StrongFocus)
@@ -51,60 +51,63 @@ class EulerIntegrationWidget(QtGui.QWidget):
         self._ui.plotPane.setLayout(vbox)
         #self.setCentralWidget(self.main_frame)
 
-	self.createAxes()
-	self._makeConnections()
+        self.createAxes()
+        self._makeConnections()
 
     def createAxes(self):
-	self.axes = self.fig.add_subplot(111)
-	self.drawSineFunction()
-	self.axes.legend()
-	self.canvas.draw()
+        self.axes = self.fig.add_subplot(111)
+        self.drawSineFunction()
+        self.axes.legend()
+        self.canvas.draw()
         
     def _makeConnections(self):
         self._ui.doneButton.clicked.connect(self._doneButtonClicked)
         self._ui.simulateButton.clicked.connect(self._simulateButtonClicked)
         self._ui.clearButton.clicked.connect(self._clearButtonClicked)
-        
+
+    def setSimulationRoot(self, location):
+        self.sedml.setSimulationRoot(location)
+
     def drawSineFunction(self):
-	# draw sine function
-	t = np.arange(0.0, 2.0*np.pi, 0.01)
-	s = np.sin(t)
-	self.axes.plot(t, s, label="sin(t)")
+        # draw sine function
+        t = np.arange(0.0, 2.0*np.pi, 0.01)
+        s = np.sin(t)
+        self.axes.plot(t, s, label="sin(t)")
 
     def on_key_press(self, event):
-        print('you pressed', event.key)
+        # print('you pressed', event.key)
         # implement the default mpl key press events described at
         # http://matplotlib.org/users/navigation_toolbar.html#navigation-keyboard-shortcuts
         key_press_handler(event, self.canvas, self.mpl_toolbar)
 
     def _simulateButtonClicked(self):
-        print "Simulate clicked"
-	h = self._ui.stepSizeSpinBox.value()
+        # print( "Simulate clicked")
+        h = self._ui.stepSizeSpinBox.value()
         n = self._ui.nSpinBox.value()
-        print "n = %d; h = %lf" % (n, h)
-	data = self.sedml.execute(h, n)
-	if data == None:
-		return	
-        #self.axes.plot(self.x, self.y, 'ro')
-	data1 = np.arange(20).reshape([4, 5]).copy()
-        #self.axes.imshow(data1, interpolation='nearest')
-	#print data
-	#print data.shape
-	#print data.dtype.names
-	#print data['X']
+        # print( "n = %d; h = %lf" % (n, h))
+        data = self.sedml.execute(h, n)
+        if data is None:
+            return  
+            #self.axes.plot(self.x, self.y, 'ro')
+        data1 = np.arange(20).reshape([4, 5]).copy()
+            #self.axes.imshow(data1, interpolation='nearest')
+        #print data
+        #print data.shape
+        #print data.dtype.names
+        #print data['X']
         #self.axes.plot(data['X'], data['sinX'], label='sin(x)')
-	title = "h=" + str(h)
+        title = "h=" + str(h)
         self.axes.plot(data['X'], data['Derivative_approximation'], marker="o", label=title)
-	self.axes.legend()
+        self.axes.legend()
         self.canvas.draw()
     
     def _clearButtonClicked(self):
-        print "Clear button clicked"
-	self.fig.clear()
-	self.createAxes()
+        # print( "Clear button clicked")
+        self.fig.clear()
+        self.createAxes()
                         
     def initialise(self):
-        print "Initialise called?"
+        print ("Initialise called?")
         
     def registerDoneExecution(self, callback):
         self._callback = callback
