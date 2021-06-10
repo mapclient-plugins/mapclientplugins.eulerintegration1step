@@ -1,4 +1,3 @@
-
 '''
 MAP Client Plugin Step
 '''
@@ -17,7 +16,7 @@ class EulerIntegration1Step(WorkflowStepMountPoint):
 
     def __init__(self, location):
         super(EulerIntegration1Step, self).__init__('Euler Integration 1', location)
-        self._configured = False # A step cannot be executed until it has been configured.
+        self._configured = False  # A step cannot be executed until it has been configured.
         self._category = 'Integration'
         # Add any other initialisation code here:
         # Ports:
@@ -25,12 +24,11 @@ class EulerIntegration1Step(WorkflowStepMountPoint):
                       'http://physiomeproject.org/workflow/1.0/rdf-schema#uses',
                       'sedml'))
         # Port data:
-        self._portData0 = None # sedml
+        self._portData0 = None  # sedml
         # Config:
         self._config = {}
         self._config['identifier'] = ''
         self._view = None
-
 
     def execute(self):
         '''
@@ -51,7 +49,7 @@ class EulerIntegration1Step(WorkflowStepMountPoint):
         The index is the index of the port in the port list.  If there is only one
         uses port for this step then the index can be ignored.
         '''
-        self._portData0 = dataIn # sedml
+        self._portData0 = dataIn  # sedml
 
     def configure(self):
         '''
@@ -66,10 +64,10 @@ class EulerIntegration1Step(WorkflowStepMountPoint):
         dlg.setConfig(self._config)
         dlg.validate()
         dlg.setModal(True)
-        
+
         if dlg.exec_():
             self._config = dlg.getConfig()
-        
+
         self._configured = dlg.validate()
         self._configuredObserver()
 
@@ -92,7 +90,6 @@ class EulerIntegration1Step(WorkflowStepMountPoint):
         '''
         return json.dumps(self._config, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
-
     def deserialize(self, string):
         '''
         Add code to deserialize this step from string.  This method should
@@ -104,5 +101,3 @@ class EulerIntegration1Step(WorkflowStepMountPoint):
         d.identifierOccursCount = self._identifierOccursCount
         d.setConfig(self._config)
         self._configured = d.validate()
-
-

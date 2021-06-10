@@ -8,9 +8,9 @@ from PySide2 import QtCore, QtWidgets
 import numpy as np
 
 import matplotlib
+
 matplotlib.use('Qt4Agg')
-matplotlib.rcParams['backend.qt4']='PySide'
-import pylab
+matplotlib.rcParams['backend.qt4'] = 'PySide'
 
 from matplotlib.backends.backend_qt4agg import (
     FigureCanvasQTAgg as FigureCanvas,
@@ -22,11 +22,11 @@ from matplotlib.backend_bases import key_press_handler
 from mapclientplugins.eulerintegration1step.view.ui_eulerintegrationwidget import Ui_EulerIntegrationWidget
 from mapclientplugins.eulerintegration1step.sedml.execute import ExecuteSedml
 
+
 class EulerIntegrationWidget(QtWidgets.QWidget):
     '''
     classdocs
     '''
-
 
     def __init__(self, parent=None):
         '''
@@ -49,7 +49,7 @@ class EulerIntegrationWidget(QtWidgets.QWidget):
         vbox.addWidget(self.canvas)  # the matplotlib canvas
         vbox.addWidget(self.mpl_toolbar)
         self._ui.plotPane.setLayout(vbox)
-        #self.setCentralWidget(self.main_frame)
+        # self.setCentralWidget(self.main_frame)
 
         self.createAxes()
         self._makeConnections()
@@ -59,7 +59,7 @@ class EulerIntegrationWidget(QtWidgets.QWidget):
         self.drawSineFunction()
         self.axes.legend()
         self.canvas.draw()
-        
+
     def _makeConnections(self):
         self._ui.doneButton.clicked.connect(self._doneButtonClicked)
         self._ui.simulateButton.clicked.connect(self._simulateButtonClicked)
@@ -70,7 +70,7 @@ class EulerIntegrationWidget(QtWidgets.QWidget):
 
     def drawSineFunction(self):
         # draw sine function
-        t = np.arange(0.0, 2.0*np.pi, 0.01)
+        t = np.arange(0.0, 2.0 * np.pi, 0.01)
         s = np.sin(t)
         self.axes.plot(t, s, label="sin(t)")
 
@@ -87,32 +87,30 @@ class EulerIntegrationWidget(QtWidgets.QWidget):
         # print( "n = %d; h = %lf" % (n, h))
         data = self.sedml.execute(h, n)
         if data is None:
-            return  
-            #self.axes.plot(self.x, self.y, 'ro')
+            return
+            # self.axes.plot(self.x, self.y, 'ro')
         data1 = np.arange(20).reshape([4, 5]).copy()
-            #self.axes.imshow(data1, interpolation='nearest')
-        #print data
-        #print data.shape
-        #print data.dtype.names
-        #print data['X']
-        #self.axes.plot(data['X'], data['sinX'], label='sin(x)')
+        # self.axes.imshow(data1, interpolation='nearest')
+        # print data
+        # print data.shape
+        # print data.dtype.names
+        # print data['X']
+        # self.axes.plot(data['X'], data['sinX'], label='sin(x)')
         title = "h=" + str(h)
         self.axes.plot(data['X'], data['Derivative_approximation'], marker="o", label=title)
         self.axes.legend()
         self.canvas.draw()
-    
+
     def _clearButtonClicked(self):
         # print( "Clear button clicked")
         self.fig.clear()
         self.createAxes()
-                        
+
     def initialise(self):
-        print ("Initialise called?")
-        
+        print("Initialise called?")
+
     def registerDoneExecution(self, callback):
         self._callback = callback
-        
+
     def _doneButtonClicked(self):
         self._callback()
-        
-
