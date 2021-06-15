@@ -3,16 +3,15 @@ Created on May 26, 2015
 
 @author: andre
 '''
-from PySide import QtGui, QtCore
+from PySide2 import QtCore, QtWidgets
 
 import numpy as np
 
 import matplotlib
-matplotlib.use('Qt4Agg')
-matplotlib.rcParams['backend.qt4']='PySide'
-import pylab
 
-from matplotlib.backends.backend_qt4agg import (
+matplotlib.use('Qt5Agg')
+
+from matplotlib.backends.backend_qt5agg import (
     FigureCanvasQTAgg as FigureCanvas,
     NavigationToolbar2QT as NavigationToolbar)
 
@@ -22,11 +21,11 @@ from matplotlib.backend_bases import key_press_handler
 from mapclientplugins.eulerintegration1step.view.ui_eulerintegrationwidget import Ui_EulerIntegrationWidget
 from mapclientplugins.eulerintegration1step.sedml.execute import ExecuteSedml
 
-class EulerIntegrationWidget(QtGui.QWidget):
+
+class EulerIntegrationWidget(QtWidgets.QWidget):
     '''
     classdocs
     '''
-
 
     def __init__(self, parent=None):
         '''
@@ -45,11 +44,10 @@ class EulerIntegrationWidget(QtGui.QWidget):
         self.mpl_toolbar = NavigationToolbar(self.canvas, self._ui.plotPane)
         self.canvas.mpl_connect('key_press_event', self.on_key_press)
 
-        vbox = QtGui.QVBoxLayout()
+        vbox = QtWidgets.QVBoxLayout()
         vbox.addWidget(self.canvas)  # the matplotlib canvas
         vbox.addWidget(self.mpl_toolbar)
         self._ui.plotPane.setLayout(vbox)
-        #self.setCentralWidget(self.main_frame)
 
         self.createAxes()
         self._makeConnections()
@@ -59,7 +57,7 @@ class EulerIntegrationWidget(QtGui.QWidget):
         self.drawSineFunction()
         self.axes.legend()
         self.canvas.draw()
-        
+
     def _makeConnections(self):
         self._ui.doneButton.clicked.connect(self._doneButtonClicked)
         self._ui.simulateButton.clicked.connect(self._simulateButtonClicked)
@@ -70,49 +68,36 @@ class EulerIntegrationWidget(QtGui.QWidget):
 
     def drawSineFunction(self):
         # draw sine function
-        t = np.arange(0.0, 2.0*np.pi, 0.01)
+        t = np.arange(0.0, 2.0 * np.pi, 0.01)
         s = np.sin(t)
         self.axes.plot(t, s, label="sin(t)")
 
     def on_key_press(self, event):
-        # print('you pressed', event.key)
         # implement the default mpl key press events described at
         # http://matplotlib.org/users/navigation_toolbar.html#navigation-keyboard-shortcuts
         key_press_handler(event, self.canvas, self.mpl_toolbar)
 
     def _simulateButtonClicked(self):
-        # print( "Simulate clicked")
         h = self._ui.stepSizeSpinBox.value()
         n = self._ui.nSpinBox.value()
-        # print( "n = %d; h = %lf" % (n, h))
         data = self.sedml.execute(h, n)
         if data is None:
-            return  
-            #self.axes.plot(self.x, self.y, 'ro')
+            return
         data1 = np.arange(20).reshape([4, 5]).copy()
-            #self.axes.imshow(data1, interpolation='nearest')
-        #print data
-        #print data.shape
-        #print data.dtype.names
-        #print data['X']
-        #self.axes.plot(data['X'], data['sinX'], label='sin(x)')
         title = "h=" + str(h)
         self.axes.plot(data['X'], data['Derivative_approximation'], marker="o", label=title)
         self.axes.legend()
         self.canvas.draw()
-    
+
     def _clearButtonClicked(self):
-        # print( "Clear button clicked")
         self.fig.clear()
         self.createAxes()
-                        
+
     def initialise(self):
-        print ("Initialise called?")
-        
+        print("Initialise called?")
+
     def registerDoneExecution(self, callback):
         self._callback = callback
-        
+
     def _doneButtonClicked(self):
         self._callback()
-        
-
